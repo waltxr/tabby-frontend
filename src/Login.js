@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
+import './Login.css'
 
 
 class Login extends Component {
@@ -18,23 +19,29 @@ class Login extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
-    this.authenticate()
+    // this.authenticate()
   }
 
-  authenticate = () => {
-    
-  }
+  // authenticate = () => {
+  //   fetch('', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type'
+  //     }
+  //   })
+  // }
 
   render() {
     return (
       <Grid textAlign='center' style={{ height: '75vh' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
-          <Header as='h2' color='teal' textAlign='center'>
+          <Header as='h2' textAlign='center' className='login-header'>
           Log in to Tabby
           </Header>
           <Form size='large' onSubmit={this.handleSubmit}>
-            <Segment style={{ backgroundColor: 'black' }}>
+            <Segment style={{ backgroundColor: '#131356' }}>
               <Form.Input
+                className='login-form-input'
                 fluid
                 icon='user'
                 iconPosition='left'
@@ -44,6 +51,7 @@ class Login extends Component {
                 name='email'
               />
               <Form.Input
+                className='login-form-input'
                 fluid
                 icon='lock'
                 iconPosition='left'
@@ -54,7 +62,7 @@ class Login extends Component {
                 name='password'
               />
 
-              <Button type='submit' color='teal' fluid size='large' style={{color: 'black'}}>
+              <Button type='submit' className='login-button' fluid size='large'>
                 Log in
               </Button>
             </Segment>
