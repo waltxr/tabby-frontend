@@ -7,16 +7,20 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import PrivateRoute from './PrivateRoute'
 
+
+const Protected = () => <h3>Protected</h3>
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Switch>
-          <Login />
-        </Switch>        
-      </Router>      
+          <Route path='/' component={Login} />
+          <PrivateRoute path='/user' component={Protected} />
+        </Switch>
+      </Router>
     </div>
   );
 }
