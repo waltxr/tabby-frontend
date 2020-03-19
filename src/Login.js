@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
 import './Login.css'
+import { authenticate } from './actions'
+import { connect } from 'react-redux'
 
 
 class Login extends Component {
@@ -19,17 +21,8 @@ class Login extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
-    // this.authenticate()
+    this.props.authenticate(this.state)
   }
-
-  // authenticate = () => {
-  //   fetch('', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type'
-  //     }
-  //   })
-  // }
 
   render() {
     return (
@@ -73,4 +66,8 @@ class Login extends Component {
   }
 }
 
-export default Login
+const mapDispatchToProps = {
+ authenticate,
+};
+
+export default connect(null, mapDispatchToProps)(Login)

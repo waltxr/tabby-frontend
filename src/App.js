@@ -8,11 +8,13 @@ import {
   Link
 } from "react-router-dom";
 import PrivateRoute from './PrivateRoute'
+import { connect } from 'react-redux'
 
 
 const Protected = () => <h3>Protected</h3>
 
 function App() {
+  console.log(this);
   return (
     <div className="App">
       <Router>
@@ -25,4 +27,8 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = state => ({
+  authenticated: state.auth.authenticated
+})
+
+export default connect(mapStateToProps, null)(App);
