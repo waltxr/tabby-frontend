@@ -11,3 +11,8 @@
 .ui.button {
   border-radius: 0;
 }
+
+.dimmer {
+  background-color: #131356 !important;
+  font-family: 'Electrolize', sans-serif !important;
+}

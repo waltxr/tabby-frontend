@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Segment, Dimmer, Loader, Message } from 'semantic-ui-react'
 import './Login.css'
 import { authenticate } from './actions'
 import { connect } from 'react-redux'
-
 
 class Login extends Component {
 
@@ -22,52 +21,72 @@ class Login extends Component {
   handleSubmit = e => {
     e.preventDefault()
     this.props.authenticate(this.state)
+    this.setState({
+      email: ''
+    })
   }
 
   render() {
     return (
       <Grid textAlign='center' style={{ height: '75vh' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
-          <Header as='h2' textAlign='center' className='login-header'>
-          Log in to Tabby
-          </Header>
-          <Form size='large' onSubmit={this.handleSubmit}>
-            <Segment style={{ backgroundColor: '#131356' }}>
-              <Form.Input
-                className='login-form-input'
-                fluid
-                icon='user'
-                iconPosition='left'
-                placeholder='E-mail address'
-                value={this.state.email}
-                onChange={this.handleChange}
-                name='email'
-              />
-              <Form.Input
-                className='login-form-input'
-                fluid
-                icon='lock'
-                iconPosition='left'
-                placeholder='Password'
-                type='password'
-                value={this.state.pasword}
-                onChange={this.handleChange}
-                name='password'
-              />
+          { this.props.auth.authenticating ?
+            <Dimmer active>
+               <Loader size='massive'>Logging in...</Loader>
+            </Dimmer>
+            :
+            <div>
+              <Header as='h2' textAlign='center' className='login-header'>
+                Log in to Tabby
+              </Header>
+              <Form size='large' onSubmit={this.handleSubmit}>
+                <Segment style={{ backgroundColor: '#131356' }}>
+                  {
+                    this.props.auth.authenticationError ?
+                      <Message color='red' size='mini'>
+                        Sorry, but we couldn't find an account that matches those credentials D;
+                      </Message> :
+                      null
+                  }
+                  <Form.Input
+                    className='login-form-input'
+                    fluid
+                    icon='user'
+                    iconPosition='left'
+                    placeholder='E-mail address'
+                    value={this.state.email}
+                    onChange={this.handleChange}
+                    name='email'
+                  />
+                  <Form.Input
+                    className='login-form-input'
+                    fluid
+                    icon='lock'
+                    iconPosition='left'
+                    placeholder='Password'
+                    type='password'
+                    value={this.state.pasword}
+                    onChange={this.handleChange}
+                    name='password'
+                  />
 
-              <Button type='submit' className='login-button' fluid size='large'>
-                Log in
-              </Button>
-            </Segment>
-          </Form>
+                  <Button type='submit' className='login-button' fluid size='large'>
+                    Log in
+                  </Button>
+                </Segment>
+              </Form>
+            </div>
+          }
         </Grid.Column>
       </Grid>
     )
   }
 }
 
-const mapDispatchToProps = {
- authenticate,
-};
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  }
+}
 
-export default connect(null, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, { authenticate })(Login)
