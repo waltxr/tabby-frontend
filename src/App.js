@@ -13,9 +13,9 @@ import { connect } from 'react-redux'
 
 const Protected = () => <h3>Protected</h3>
 
-function App() {
-  console.log(this);
-  return (
+const App = props => {
+  console.log(props);
+  return(
     <div className="App">
       <Router>
         <Switch>
@@ -24,11 +24,11 @@ function App() {
         </Switch>
       </Router>
     </div>
-  );
+  )
 }
 
 const mapStateToProps = state => ({
   authenticated: state.auth.authenticated
 })
 
-export default connect(mapStateToProps, null)(App);
+export default connect(mapStateToProps)(App);
