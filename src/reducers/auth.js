@@ -5,7 +5,7 @@ const initialState = {
   currentUser: undefined
 }
 
-const auth = (state = initialState, action) => {  
+const auth = (state = initialState, action) => {
   switch (action.type) {
     case 'LOGIN':
       return {
@@ -24,6 +24,13 @@ const auth = (state = initialState, action) => {
         ...state,
         authenticating: false,
         authenticationError: action.error
+      }
+    case 'LOGOUT':
+      return {
+        ...state,
+        authenticating: false,
+        authenticated: false,
+        currentUser: undefined
       }
     default:
       return state

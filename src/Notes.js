@@ -2,20 +2,21 @@ import React from 'react'
 import { Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom';
+import { logOut } from './actions'
 
 
-const handleLogout = history => () => {
-  //action that handles logout
+const handleLogout = (logOut, history) => () => {
+  logOut()
   history.push('/login')
 }
 
-const Notes = ({ auth, history }) => {
-  console.log(auth);
+const Notes = ({ logOut, auth, history }) => {
   if (!auth.authenticated) {
+
     return <Redirect to="/login" />
   }
   return(
-    <Button name='logout' onClick={handleLogout(history)}>Log out</Button>
+    <Button name='logout' onClick={handleLogout(logOut, history)}>Log out</Button>
   )
 }
 
@@ -25,4 +26,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(Notes)
+export default connect(mapStateToProps, { logOut })(Notes)

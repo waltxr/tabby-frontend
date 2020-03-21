@@ -15,11 +15,11 @@ const persistedState = loadState()
 
 const store = createStore(
   rootReducer,
+  persistedState,
   applyMiddleware(
     thunkMiddleware,
     loggerMiddleware
-  ),
-  persistedState
+  )
 )
 
 store.subscribe(() => {

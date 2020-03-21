@@ -1,7 +1,8 @@
-export const API_URL = process.env.REACT_APP_API_URL
-export const LOGIN = 'LOGIN'
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
-export const LOGIN_FAIL = 'LOGIN_FAIL'
+const API_URL = process.env.REACT_APP_API_URL
+const LOGIN = 'LOGIN'
+const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+const LOGIN_FAIL = 'LOGIN_FAIL'
+const LOGOUT = 'LOGOUT'
 
 const authRequest = () => (
   {
@@ -23,6 +24,10 @@ const authFail = error => (
   }
 )
 
+const authLogout = () => ({
+  type: LOGOUT
+})
+
 export const authenticate = credentials => {
   return dispatch => {
     dispatch(authRequest())
@@ -39,12 +44,22 @@ export const authenticate = credentials => {
           response.json()
           .then(res => {
             dispatch(authSuccess(res.user))
-            localStorage.setItem('token', res.token)            
+            localStorage.setItem('token', res.token)
           })
         } else if (!response.ok) {
           dispatch(authFail(response.statusText))
         }
       })
     }, 2000);
+  }
+}
+
+export const logOut = () => {
+  return dispatch => {
+    dispatch(authRequest())
+    setTimeout(() => {
+      dispatch(authLogout())
+      localStorage.clear()
+    }, 2000)
   }
 }

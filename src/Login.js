@@ -31,7 +31,6 @@ class Login extends Component {
   }
 
   render() {
-
     if (this.props.auth.authenticated) {
       return <Redirect to='/notes' />
     }
