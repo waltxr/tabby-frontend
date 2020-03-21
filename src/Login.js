@@ -3,6 +3,8 @@ import { Button, Form, Grid, Header, Segment, Dimmer, Loader, Message } from 'se
 import './Login.css'
 import { authenticate } from './actions'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom';
+
 
 class Login extends Component {
 
@@ -20,13 +22,20 @@ class Login extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
+    const { history } = this.props
     this.props.authenticate(this.state)
     this.setState({
       email: ''
     })
+    history.push('/notes')
   }
 
   render() {
+
+    if (this.props.auth.authenticated) {
+      return <Redirect to='/notes' />
+    }
+
     return (
       <Grid textAlign='center' style={{ height: '75vh' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
@@ -44,7 +53,7 @@ class Login extends Component {
                   {
                     this.props.auth.authenticationError ?
                       <Message color='red' size='mini'>
-                        Sorry, but we couldn't find an account that matches those credentials D;
+                        Nah we can't find an account that matches those credentials D;
                       </Message> :
                       null
                   }

@@ -9,31 +9,19 @@ import {
   Redirect
 } from "react-router-dom";
 import { connect } from 'react-redux'
+import Notes from './Notes'
 
-
-const Protected = () => <h3>Protected</h3>
-
-const App = props => {
-  console.log(props.auth.authenticated);
+const App = () => {
   return(
     <div className="App">
       <Router>
-        <Route>
-          { props.auth.authenticated ? <Redirect to ='/user'/> : <Redirect to='/login' /> }
-        </Route>
-        <Route path='/login' component={Login} />
-        <Route path='/user'>
-          <Protected />
-        </Route>
+        <Switch>
+          <Route path='/login' component={Login}/>
+          <Route path='/notes' component={Notes} />
+        </Switch>
       </Router>
     </div>
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    auth: state.auth
-  }
-}
-
-export default connect(mapStateToProps)(App)
+export default App
