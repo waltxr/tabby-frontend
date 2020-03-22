@@ -3,6 +3,8 @@ import { Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { logOut } from './actions'
+import { Grid, Header, Segment, Dimmer, Loader, Message } from 'semantic-ui-react'
+
 
 
 const handleLogout = (logOut, history) => () => {
@@ -16,7 +18,16 @@ const Notes = ({ logOut, auth, history }) => {
     return <Redirect to="/login" />
   }
   return(
-    <Button name='logout' onClick={handleLogout(logOut, history)}>Log out</Button>
+    <Grid>
+      {
+        auth.authenticating ?
+        <Dimmer active>
+          <Loader size='massive'>Logging out..</Loader>
+        </Dimmer>
+        :
+        <Button name='logout' onClick={handleLogout(logOut, history)}>Log out</Button>
+      }       
+    </Grid>
   )
 }
 

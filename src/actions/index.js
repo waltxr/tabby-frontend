@@ -42,15 +42,15 @@ export const authenticate = credentials => {
       .then(response => {
         if (response.ok) {
           response.json()
-          .then(res => {
-            dispatch(authSuccess(res.user))
-            localStorage.setItem('token', res.token)
+          .then(jsonRes => {
+            dispatch(authSuccess(jsonRes.user))
+            localStorage.setItem('token', jsonRes.token)
           })
         } else if (!response.ok) {
           dispatch(authFail(response.statusText))
         }
       })
-    }, 2000);
+    }, 1500)
   }
 }
 
@@ -60,6 +60,6 @@ export const logOut = () => {
     setTimeout(() => {
       dispatch(authLogout())
       localStorage.clear()
-    }, 2000)
+    }, 1000)
   }
 }

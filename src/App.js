@@ -15,9 +15,10 @@ const App = () => {
   return(
     <div className="App">
       <Router>
+        <Redirect from='*' to='/notes' />
         <Switch>
-          <Route path='/login' component={Login}/>
           <Route path='/notes' component={Notes} />
+          <Route path='/login' component={Login}/>
         </Switch>
       </Router>
     </div>
