@@ -2,3 +2,21 @@
   text-align: center;
   color: white;
 }
+
+.left-menu {
+  position:fixed;
+  display:flex;
+  flex-direction:column;
+  top:0;
+  bottom:0;
+  left:0;
+  width:250px;
+  background:#1B1C1D;
+  overflow-x:hidden;
+  flex:1
+}
+
+.notes-container {
+  margin-left: 250px;
+  min-width: 550px;
+}

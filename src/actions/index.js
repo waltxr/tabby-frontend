@@ -1,28 +1,26 @@
+
+// authentication
+
 const API_URL = process.env.REACT_APP_API_URL
 const LOGIN = 'LOGIN'
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 const LOGIN_FAIL = 'LOGIN_FAIL'
 const LOGOUT = 'LOGOUT'
 
-const authRequest = () => (
-  {
+const authRequest = () => ({
     type: LOGIN
-  }
-)
+})
 
-const authSuccess = user => {
-  return {
-    type: LOGIN_SUCCESS,
-    user
-  }
-}
+const authSuccess = user => ({
+  type: LOGIN_SUCCESS,
+  user
+})
 
-const authFail = error => (
-  {
-    type: LOGIN_FAIL,
-    error
-  }
-)
+
+const authFail = error => ({
+  type: LOGIN_FAIL,
+  error
+})
 
 const authLogout = () => ({
   type: LOGOUT
@@ -61,5 +59,47 @@ export const logOut = () => {
       dispatch(authLogout())
       localStorage.clear()
     }, 1000)
+  }
+}
+
+// notes
+
+const GET_NOTES = 'GET_NOTES'
+const GOT_NOTES = 'GOT_NOTES'
+const NOTE_ERRORS = 'NOTE_ERRORS'
+
+const getNotes = () => ({
+  type: GET_NOTES
+})
+
+const gotNotes = notes => ({
+  type: GOT_NOTES,
+  notes
+})
+
+const noteErrors = error => ({
+  type: NOTE_ERRORS,
+  error
+})
+
+export const fetchNotes = user => {
+  return dispatch => {
+    dispatch(getNotes())
+    return fetch(`${API_URL}/users/${user.id}/notes`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        response.json()
+        .then(jsonRes => {
+          dispatch(gotNotes(jsonRes.notes))
+        })
+      } else if (!response.ok) {
+        dispatch(noteErrors(response.statusText))
+      }
+    })
   }
 }

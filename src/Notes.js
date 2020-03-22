@@ -1,9 +1,9 @@
 import React from 'react'
-import { Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { logOut } from './actions'
-import { Grid, Header, Segment, Dimmer, Loader, Message } from 'semantic-ui-react'
+import { Grid, Header, Segment, Dimmer, Loader, Message, Button, Container } from 'semantic-ui-react'
+import NoteTabs from './NoteTabs'
 
 
 
@@ -14,20 +14,27 @@ const handleLogout = (logOut, history) => () => {
 
 const Notes = ({ logOut, auth, history }) => {
   if (!auth.authenticated) {
-
     return <Redirect to="/login" />
   }
   return(
-    <Grid>
+    <div>
       {
-        auth.authenticating ?
+        auth.authenticating
+        ?
         <Dimmer active>
           <Loader size='massive'>Logging out..</Loader>
         </Dimmer>
         :
-        <Button name='logout' onClick={handleLogout(logOut, history)}>Log out</Button>
-      }       
-    </Grid>
+        <div>
+          <div className='left-menu'>
+            <Button basic color='purple' name='logout' size='mini' onClick={handleLogout(logOut, history)}>Log out</Button>
+          </div>
+          <div className='notes-container'>
+            <NoteTabs />
+          </div>
+        </div>
+      }
+    </div>
   )
 }
 
