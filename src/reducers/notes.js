@@ -1,11 +1,11 @@
 const initialState = {
-  notes: undefined,
+  list: undefined,
   gettingNotes: false,
   gettingNotesError: undefined
 }
 
 const notes = (state = initialState, action) => {
-  switch (action.type) {    
+  switch (action.type) {
     case 'GET_NOTES':
       return {
         ...state,
@@ -15,14 +15,22 @@ const notes = (state = initialState, action) => {
       return {
         ...state,
         gettingNotes: false,
-        notes: action.notes
+        list: action.notes
       }
     case 'NOTE_ERRORS':
       return {
         ...state,
+        gettingNotes: false,
         gettingNotesError: action.error
+      }
+    case 'ADD_NOTE':
+      return {
+        ...state,
+        list: action.notes
       }
     default:
       return state
   }
 }
+
+export default notes

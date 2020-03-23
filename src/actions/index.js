@@ -67,6 +67,7 @@ export const logOut = () => {
 const GET_NOTES = 'GET_NOTES'
 const GOT_NOTES = 'GOT_NOTES'
 const NOTE_ERRORS = 'NOTE_ERRORS'
+const ADD_NOTE = 'ADD_NOTE'
 
 const getNotes = () => ({
   type: GET_NOTES
@@ -82,24 +83,62 @@ const noteErrors = error => ({
   error
 })
 
-export const fetchNotes = user => {
+const postNote = notes => ({
+  type: ADD_NOTE,
+  notes
+})
+
+export const fetchNotes = () => {
   return dispatch => {
-    dispatch(getNotes())
-    return fetch(`${API_URL}/users/${user.id}/notes`, {
+    dispatch(getNotes())    
+    return fetch(`${API_URL}/notes`, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.token}`
       }
     })
     .then(response => {
       if (response.ok) {
+        console.log(response);
         response.json()
         .then(jsonRes => {
-          dispatch(gotNotes(jsonRes.notes))
+          if (jsonRes.error) {
+            console.log(jsonRes);
+            dispatch(noteErrors(jsonRes.error))
+          } else {
+            console.log(jsonRes);
+            dispatch(gotNotes(jsonRes))
+          }
         })
       } else if (!response.ok) {
+        console.log('in errors');
         dispatch(noteErrors(response.statusText))
       }
+    })
+  }
+}
+
+export const addNote = title => {
+  console.log(title);
+  return dispatch => {
+    console.log(dispatch);
+    console.log(title);
+    return fetch(`${API_URL}/notes`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.token}`
+      },
+      body: title
+    })
+    .then(response => {
+      console.log(response);
+      response.json()
+    })
+    .then(jsonRes => {
+      console.log(jsonRes);
+      dispatch(postNote(jsonRes))
     })
   }
 }

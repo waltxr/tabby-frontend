@@ -1,26 +1,26 @@
-// const initialState = {
-//   authenticating: false,
-//   authenticated: false,
-//   authenticationError: undefined,
-//   currentUser: undefined
-// }
-
-// for development
 const initialState = {
   authenticating: false,
-  authenticated: true,
+  authenticated: false,
   authenticationError: undefined,
-  currentUser: {
-    id: 1,
-    name: "Adam",
-    username: "waltxr",
-    email: "adam@adam.com",
-    password_digest: "$2a$12$p46gZtSeDTC4Mf9Bcz3eguHyLk/HD6w5.VXp0WC0Nppa/BG6P6dRq",
-    created_at: "2020-03-17T19:00:02.156Z",
-    updated_at: "2020-03-17T19:00:02.156Z",
-    avatar: {url: null}
-  }
+  currentUser: undefined
 }
+
+// for development
+// const initialState = {
+//   authenticating: false,
+//   authenticated: true,
+//   authenticationError: undefined,
+//   currentUser: {
+//     id: 1,
+//     name: "Adam",
+//     username: "waltxr",
+//     email: "adam@adam.com",
+//     password_digest: "$2a$12$p46gZtSeDTC4Mf9Bcz3eguHyLk/HD6w5.VXp0WC0Nppa/BG6P6dRq",
+//     created_at: "2020-03-17T19:00:02.156Z",
+//     updated_at: "2020-03-17T19:00:02.156Z",
+//     avatar: {url: null}
+//   }
+// }
 
 const auth = (state = initialState, action) => {
   switch (action.type) {
