@@ -7,13 +7,9 @@ import NoteTab from './NoteTab'
 
 class NoteTabs extends Component {
 
-  componentDidUpdate() {
-    debugger
-    // if (this.props.currentUser) {
-    //   this.props.fetchNotes()
-    // } else {
-    //   console.log('oooh check NotesTab');
-    // }
+  componentDidMount() {
+    const { token } = this.props
+    this.props.fetchNotes(token)
   }
 
   render() {
@@ -43,7 +39,8 @@ class NoteTabs extends Component {
 const mapStateToProps = state => {
   return {
     currentUser: state.auth.currentUser,
-    notes: state.notes.list
+    notes: state.notes.list,
+    token: state.auth.token
   }
 }
 

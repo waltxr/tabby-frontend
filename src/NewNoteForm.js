@@ -4,16 +4,16 @@ import { addNote } from './actions'
 import { connect } from 'react-redux'
 
 
-
 class NewNoteForm extends Component {
   state = {
-    title: ''
+    title: '',
+    body: 'new note'
   }
 
   handleAddNote = () => {
-    const { addNote } = this.props
-    const { title } = this.state
-    addNote(title)
+    const { addNote, token } = this.props
+    const note = this.state
+    addNote(note, token)
     this.setState({
       title: ''
     })
@@ -40,4 +40,10 @@ class NewNoteForm extends Component {
   }
 }
 
-export default connect(null, { addNote })(NewNoteForm)
+const mapStateToProps = state => {
+  return {
+    token: state.auth.token
+  }
+}
+
+export default connect(mapStateToProps, { addNote })(NewNoteForm)

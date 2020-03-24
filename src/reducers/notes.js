@@ -4,7 +4,7 @@ const initialState = {
   gettingNotesError: undefined
 }
 
-const notes = (state = initialState, action) => {  
+const notes = (state = initialState, action) => {
   switch (action.type) {
     case 'GET_NOTES':
       return {
@@ -24,9 +24,12 @@ const notes = (state = initialState, action) => {
         gettingNotesError: action.error
       }
     case 'ADD_NOTE':
+    console.log(action.note);
       return {
-        ...state,
-        list: action.notes
+        list: [
+          ...state.list,
+          action.note
+        ]
       }
     default:
       return state

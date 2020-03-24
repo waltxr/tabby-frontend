@@ -11,9 +11,10 @@ const authRequest = () => ({
     type: LOGIN
 })
 
-const authSuccess = user => ({
+const authSuccess = (user, token) => ({
   type: LOGIN_SUCCESS,
-  user
+  user,
+  token
 })
 
 
@@ -41,8 +42,7 @@ export const authenticate = credentials => {
         if (response.ok) {
           response.json()
           .then(jsonRes => {
-            dispatch(authSuccess(jsonRes.user))
-            localStorage.setItem('token', jsonRes.token)
+            dispatch(authSuccess(jsonRes.user, jsonRes.token))
           })
         } else if (!response.ok) {
           dispatch(authFail(response.statusText))
@@ -83,19 +83,19 @@ const noteErrors = error => ({
   error
 })
 
-const postNote = notes => ({
+const postNote = note => ({
   type: ADD_NOTE,
-  notes
+  note
 })
 
-export const fetchNotes = () => {
+export const fetchNotes = token => {
   return dispatch => {
-    dispatch(getNotes())    
+    dispatch(getNotes())
     return fetch(`${API_URL}/notes`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.token}`
+        'Authorization': `Bearer ${token}`
       }
     })
     .then(response => {
@@ -112,33 +112,29 @@ export const fetchNotes = () => {
           }
         })
       } else if (!response.ok) {
-        console.log('in errors');
         dispatch(noteErrors(response.statusText))
       }
     })
   }
 }
 
-export const addNote = title => {
-  console.log(title);
+export const addNote = (note, token) => {
   return dispatch => {
-    console.log(dispatch);
-    console.log(title);
     return fetch(`${API_URL}/notes`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.token}`
+        'Authorization': `Bearer ${token}`
       },
-      body: title
+      body: JSON.stringify(note)
     })
     .then(response => {
-      console.log(response);
-      response.json()
+      console.log(response)
+      return response.json()
     })
-    .then(jsonRes => {
-      console.log(jsonRes);
-      dispatch(postNote(jsonRes))
+    .then(json => {
+      console.log(json)
+      dispatch(postNote(json))
     })
   }
 }

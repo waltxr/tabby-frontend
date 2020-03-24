@@ -2,7 +2,8 @@ const initialState = {
   authenticating: false,
   authenticated: false,
   authenticationError: undefined,
-  currentUser: undefined
+  currentUser: undefined,
+  token: undefined
 }
 
 // for development
@@ -30,11 +31,13 @@ const auth = (state = initialState, action) => {
         authenticating: true
       }
     case 'LOGIN_SUCCESS':
+    console.log(action);
       return {
         ...state,
         authenticating: false,
         authenticated: true,
-        currentUser: action.user
+        currentUser: action.user,
+        token: action.token
       }
     case 'LOGIN_FAIL':
       return {
