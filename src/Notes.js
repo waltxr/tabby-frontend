@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { logOut } from './actions'
-import { Input, Grid, Header, Segment, Dimmer, Loader, Message, Button, Container } from 'semantic-ui-react'
+import { Dimmer, Loader, Button } from 'semantic-ui-react'
 import NoteTabs from './NoteTabs'
 import NewNoteForm from './NewNoteForm'
 

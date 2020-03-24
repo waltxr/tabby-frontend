@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Tab, TextArea, Button, Icon, Menu, Input } from 'semantic-ui-react'
+import { Input } from 'semantic-ui-react'
 import { addNote } from './actions'
 import { connect } from 'react-redux'
 

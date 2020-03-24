@@ -4,7 +4,7 @@ const initialState = {
   gettingNotesError: undefined
 }
 
-const notes = (state = initialState, action) => {
+const notes = (state = initialState, action) => {  
   switch (action.type) {
     case 'GET_NOTES':
       return {

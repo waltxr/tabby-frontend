@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { fetchNotes } from './actions'
-import { Tab, TextArea, Button, Icon, Menu } from 'semantic-ui-react'
+import { Tab } from 'semantic-ui-react'
 import NoteTab from './NoteTab'
 
 
 class NoteTabs extends Component {
 
-  componentDidUpdate(prevProps) {
-    console.log(prevProps);
-    console.log(this.props);
-    this.props.fetchNotes(this.props.currentUser)
+  componentDidUpdate() {
+    debugger
+    // if (this.props.currentUser) {
+    //   this.props.fetchNotes()
+    // } else {
+    //   console.log('oooh check NotesTab');
+    // }
   }
 
   render() {

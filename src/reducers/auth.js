@@ -42,8 +42,6 @@ const auth = (state = initialState, action) => {
         authenticating: false,
         authenticationError: action.error
       }
-    case 'LOGOUT':
-      return initialState
     default:
       return state
   }
