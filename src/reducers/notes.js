@@ -1,5 +1,5 @@
 const initialState = {
-  list: undefined,
+  list: [],
   gettingNotes: false,
   gettingNotesError: undefined
 }
@@ -24,12 +24,25 @@ const notes = (state = initialState, action) => {
         gettingNotesError: action.error
       }
     case 'ADD_NOTE':
-    console.log(action.note);
       return {
+        ...state,
         list: [
           ...state.list,
           action.note
         ]
+      }
+    case 'UPDATE_NOTE':
+      return {
+        ...state,
+        list: state.list.map( note => {
+          if (note.id === action.note.id) {
+            return {
+              ...note,
+              body: action.note.body
+            }
+          }
+          return note
+        })
       }
     default:
       return state

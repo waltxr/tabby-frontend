@@ -13,19 +13,12 @@ class NoteTabs extends Component {
   }
 
   render() {
-    console.log('in note tabs');
-
-    let panes = []
-
-    if (this.props.notes) {
-      panes = this.props.notes.map(note => {
-        console.log('in map function');
-        return {
-          menuItem: note.title,
-          render: () => <NoteTab body={note.body} title={note.title}/>
-        }
-      })
-    }
+    const panes = this.props.notes.map((note, i) => {
+      return {
+        menuItem: note.title,
+        render: () => <NoteTab note={note} />
+      }
+    })
 
     return(
       <div>

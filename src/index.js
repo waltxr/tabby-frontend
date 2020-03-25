@@ -13,8 +13,6 @@ const loggerMiddleware = createLogger()
 
 const persistedState = loadState()
 
-console.log(rootReducer);
-
 const store = createStore(
   rootReducer,
   persistedState,

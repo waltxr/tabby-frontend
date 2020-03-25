@@ -3,19 +3,18 @@ import { Input } from 'semantic-ui-react'
 import { addNote } from './actions'
 import { connect } from 'react-redux'
 
+const initialState = {title: '', body: 'new note'}
 
 class NewNoteForm extends Component {
-  state = {
-    title: '',
-    body: 'new note'
-  }
+  state = initialState
 
   handleAddNote = () => {
     const { addNote, token } = this.props
     const note = this.state
     addNote(note, token)
     this.setState({
-      title: ''
+      title: initialState.title,
+      body: initialState.body
     })
   }
 
@@ -35,6 +34,7 @@ class NewNoteForm extends Component {
         }}
         placeholder='Add new note...'
         onChange={this.handleChange}
+        value={this.state.title}
       />
     )
   }

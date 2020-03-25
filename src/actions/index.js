@@ -68,6 +68,7 @@ const GET_NOTES = 'GET_NOTES'
 const GOT_NOTES = 'GOT_NOTES'
 const NOTE_ERRORS = 'NOTE_ERRORS'
 const ADD_NOTE = 'ADD_NOTE'
+const UPDATE_NOTE = 'UPDATE_NOTE'
 
 const getNotes = () => ({
   type: GET_NOTES
@@ -88,6 +89,11 @@ const postNote = note => ({
   note
 })
 
+const updateNotes = note => ({
+  type: UPDATE_NOTE,
+  note: note
+})
+
 export const fetchNotes = token => {
   return dispatch => {
     dispatch(getNotes())
@@ -100,14 +106,11 @@ export const fetchNotes = token => {
     })
     .then(response => {
       if (response.ok) {
-        console.log(response);
         response.json()
         .then(jsonRes => {
           if (jsonRes.error) {
-            console.log(jsonRes);
             dispatch(noteErrors(jsonRes.error))
           } else {
-            console.log(jsonRes);
             dispatch(gotNotes(jsonRes))
           }
         })
@@ -129,12 +132,16 @@ export const addNote = (note, token) => {
       body: JSON.stringify(note)
     })
     .then(response => {
-      console.log(response)
       return response.json()
     })
     .then(json => {
-      console.log(json)
       dispatch(postNote(json))
     })
+  }
+}
+
+export const updateNote = note => {
+  return dispatch => {
+    dispatch(updateNotes(note))
   }
 }

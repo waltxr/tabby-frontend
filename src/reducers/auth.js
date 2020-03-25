@@ -31,7 +31,6 @@ const auth = (state = initialState, action) => {
         authenticating: true
       }
     case 'LOGIN_SUCCESS':
-    console.log(action);
       return {
         ...state,
         authenticating: false,
