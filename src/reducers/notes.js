@@ -1,7 +1,8 @@
 const initialState = {
   list: [],
   gettingNotes: false,
-  gettingNotesError: undefined
+  gettingNotesError: undefined,
+  updatedNotes: []
 }
 
 const notes = (state = initialState, action) => {
@@ -43,6 +44,19 @@ const notes = (state = initialState, action) => {
           }
           return note
         })
+      }
+    case 'ADD_TO_UPDATED_NOTES':
+      return {
+        ...state,
+        updatedNotes: [
+          ...state.updatedNotes,
+          action.noteId
+        ]
+      }
+    case 'CLEAR_UPDATED_NOTES':
+      return {
+        ...state,
+        updatedNotes: []
       }
     default:
       return state

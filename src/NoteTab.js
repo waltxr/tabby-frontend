@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Tab, TextArea, Form } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { updateNote } from './actions'
+import { updateNote, updateUpdatedNotes } from './actions'
 
 
 class NoteTab extends Component {
@@ -10,13 +10,19 @@ class NoteTab extends Component {
 
   handleChange = e => {
     const { value } = e.target
-    this.setState({
-      note: {
-        ...this.state.note,
-        body: value
-      }
-    })
-    this.props.updateNote(this.state.note)
+
+    const newState = {note: {
+      ...this.state.note,
+      body: value
+    }}
+
+    this.setState(newState)
+    this.props.updateNote(newState.note)
+
+    if (!this.props.updatedNotes.includes(newState.note.id)) {
+      this.props.updateUpdatedNotes(newState.note.id)
+    }
+
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -42,4 +48,10 @@ class NoteTab extends Component {
 
 }
 
-export default connect(null, { updateNote })(NoteTab)
+const mapStateToProps = state => {
+  return {
+    updatedNotes: state.notes.updatedNotes
+  }
+}
+
+export default connect(mapStateToProps, { updateNote, updateUpdatedNotes })(NoteTab)

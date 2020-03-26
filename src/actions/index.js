@@ -69,6 +69,8 @@ const GOT_NOTES = 'GOT_NOTES'
 const NOTE_ERRORS = 'NOTE_ERRORS'
 const ADD_NOTE = 'ADD_NOTE'
 const UPDATE_NOTE = 'UPDATE_NOTE'
+const ADD_TO_UPDATED_NOTES = 'ADD_TO_UPDATED_NOTES'
+const CLEAR_UPDATED_NOTES = 'CLEAR_UPDATED_NOTES'
 
 const getNotes = () => ({
   type: GET_NOTES
@@ -92,6 +94,15 @@ const postNote = note => ({
 const updateNotes = note => ({
   type: UPDATE_NOTE,
   note: note
+})
+
+const addToUpdatedNotes = noteId => ({
+  type: ADD_TO_UPDATED_NOTES,
+  noteId: noteId
+})
+
+const clearUdpatedNotes = () => ({
+  type: CLEAR_UPDATED_NOTES
 })
 
 export const fetchNotes = token => {
@@ -123,7 +134,7 @@ export const fetchNotes = token => {
 
 export const addNote = (note, token) => {
   return dispatch => {
-    return fetch(`${API_URL}/notes`, {
+    return fetch(`${API_URL}/notes/new`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -143,5 +154,27 @@ export const addNote = (note, token) => {
 export const updateNote = note => {
   return dispatch => {
     dispatch(updateNotes(note))
+  }
+}
+
+export const updateUpdatedNotes = noteId => {
+  return dispatch => {
+    dispatch(addToUpdatedNotes(noteId))
+  }
+}
+
+export const batchUpdateNotes = (notes, token) => {
+  return dispatch => {
+    notes.forEach( note => {
+      fetch(`${API_URL}/notes/update`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(note)
+      })
+    })
+    dispatch(clearUdpatedNotes())
   }
 }

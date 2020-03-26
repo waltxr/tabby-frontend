@@ -10,6 +10,7 @@ import {
 import Notes from './Notes'
 
 const App = () => {
+  
   return(
     <div className="App">
       <Router>
