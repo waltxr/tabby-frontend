@@ -58,6 +58,11 @@ const notes = (state = initialState, action) => {
         ...state,
         updatedNotes: []
       }
+    case 'DELETE_NOTE':
+      return {
+        ...state,
+        list: state.list.filter(note => note.id !== action.note.id)        
+      }
     default:
       return state
   }

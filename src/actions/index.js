@@ -71,6 +71,7 @@ const ADD_NOTE = 'ADD_NOTE'
 const UPDATE_NOTE = 'UPDATE_NOTE'
 const ADD_TO_UPDATED_NOTES = 'ADD_TO_UPDATED_NOTES'
 const CLEAR_UPDATED_NOTES = 'CLEAR_UPDATED_NOTES'
+const DELETE_NOTE = 'DELETE_NOTE'
 
 const getNotes = () => ({
   type: GET_NOTES
@@ -103,6 +104,11 @@ const addToUpdatedNotes = noteId => ({
 
 const clearUdpatedNotes = () => ({
   type: CLEAR_UPDATED_NOTES
+})
+
+const deleteNote = note => ({
+  type: DELETE_NOTE,
+  note
 })
 
 export const fetchNotes = token => {
@@ -176,5 +182,23 @@ export const batchUpdateNotes = (notes, token) => {
       })
     })
     dispatch(clearUdpatedNotes())
+  }
+}
+
+export const destroyNote = (note, token) => {
+  return dispatch => {
+    return fetch(`${API_URL}/notes/delete`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(note)
+    })
+    .then(response => {
+      if (response.ok) {
+        dispatch(deleteNote(note))
+      }
+    })
   }
 }
