@@ -202,3 +202,23 @@ export const destroyNote = (note, token) => {
     })
   }
 }
+
+export const toggleActiveNote = (note, token) => {
+  note.active = !note.active
+  console.log(note);
+  return dispatch => {
+    return fetch(`${API_URL}/notes/update`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(note)
+    })
+    .then(response => {
+      if (response.ok) {
+        dispatch(fetchNotes(token))
+      }
+    })
+  }
+}

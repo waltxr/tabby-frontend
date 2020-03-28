@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Tab, TextArea, Form, Menu } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { updateNote, updateUpdatedNotes, destroyNote } from './actions'
+import { updateNote, updateUpdatedNotes, destroyNote, toggleActiveNote } from './actions'
 
 
 class NoteTab extends Component {
@@ -33,7 +33,8 @@ class NoteTab extends Component {
   }
 
   handleClose = () => {
-    console.log('in close');
+    this.props.toggleActiveNote(this.props.note, this.props.token)
+
   }
 
   handleDelete = () => {
@@ -67,4 +68,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { updateNote, updateUpdatedNotes, destroyNote })(NoteTab)
+export default connect(mapStateToProps, { updateNote, updateUpdatedNotes, destroyNote, toggleActiveNote })(NoteTab)

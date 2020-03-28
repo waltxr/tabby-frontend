@@ -43,7 +43,7 @@ class NoteTabs extends Component {
 const mapStateToProps = state => {
   return {
     currentUser: state.auth.currentUser,
-    notes: state.notes.list,
+    notes: state.notes.list.filter(note => note.active === true),
     token: state.auth.token,
     updatedNotes: state.notes.updatedNotes
   }

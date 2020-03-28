@@ -5,6 +5,7 @@ import { logOut } from './actions'
 import { Dimmer, Loader, Button } from 'semantic-ui-react'
 import NoteTabs from './NoteTabs'
 import NewNoteForm from './NewNoteForm'
+import SideMenu from './SideMenu'
 
 
 
@@ -30,6 +31,7 @@ const Notes = ({ logOut, auth, history }) => {
           <div className='left-menu'>
             <NewNoteForm />
             <Button basic color='purple' name='logout' size='mini' onClick={handleLogout(logOut, history)}>Log out</Button>
+            <SideMenu />
           </div>
           <div className='notes-container'>
             <NoteTabs />
