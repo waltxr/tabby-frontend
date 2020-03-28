@@ -68,10 +68,11 @@ const GET_NOTES = 'GET_NOTES'
 const GOT_NOTES = 'GOT_NOTES'
 const NOTE_ERRORS = 'NOTE_ERRORS'
 const ADD_NOTE = 'ADD_NOTE'
-const UPDATE_NOTE = 'UPDATE_NOTE'
+const UPDATE_NOTES = 'UPDATE_NOTES'
 const ADD_TO_UPDATED_NOTES = 'ADD_TO_UPDATED_NOTES'
 const CLEAR_UPDATED_NOTES = 'CLEAR_UPDATED_NOTES'
 const DELETE_NOTE = 'DELETE_NOTE'
+const UPDATE_NOTE ='UPDATE_NOTE'
 
 const getNotes = () => ({
   type: GET_NOTES
@@ -93,7 +94,7 @@ const postNote = note => ({
 })
 
 const updateNotes = note => ({
-  type: UPDATE_NOTE,
+  type: UPDATE_NOTES,
   note: note
 })
 
@@ -205,7 +206,24 @@ export const destroyNote = (note, token) => {
 
 export const toggleActiveNote = (note, token) => {
   note.active = !note.active
-  console.log(note);
+  return dispatch => {
+    return fetch(`${API_URL}/notes/update`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(note)
+    })
+    .then(response => {
+      if (response.ok) {
+        dispatch(fetchNotes(token))
+      }
+    })
+  }
+}
+
+export const updateSingleNote = (note, token) => {
   return dispatch => {
     return fetch(`${API_URL}/notes/update`, {
       method: 'POST',

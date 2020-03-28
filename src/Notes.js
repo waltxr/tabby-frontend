@@ -29,9 +29,13 @@ const Notes = ({ logOut, auth, history }) => {
         :
         <div>
           <div className='left-menu'>
-            <NewNoteForm />
-            <Button basic color='purple' name='logout' size='mini' onClick={handleLogout(logOut, history)}>Log out</Button>
-            <SideMenu />
+            <div className='left-menu-content'>
+              <NewNoteForm />
+              <SideMenu />
+            </div>
+            <div className='left-footer'>
+              <Button attached='bottom' basic name='logout' size='mini' onClick={handleLogout(logOut, history)} id='logout-button'>Log out</Button>
+            </div>
           </div>
           <div className='notes-container'>
             <NoteTabs />

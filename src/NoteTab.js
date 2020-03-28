@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import { Tab, TextArea, Form, Menu } from 'semantic-ui-react'
+import { Input, Tab, TextArea, Form, Menu, Grid } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { updateNote, updateUpdatedNotes, destroyNote, toggleActiveNote } from './actions'
+import { updateSingleNote, updateNote, updateUpdatedNotes, destroyNote, toggleActiveNote } from './actions'
 
 
 class NoteTab extends Component {
 
-  state = {note: this.props.note}
+  state = {
+    note: this.props.note,
+    renameFormActive: false
+  }
 
   static getDerivedStateFromProps(props, state) {
     if (props.note.id !== state.note.id) {
@@ -18,10 +21,13 @@ class NoteTab extends Component {
   handleChange = e => {
     const { value } = e.target
 
-    const newState = {note: {
-      ...this.state.note,
-      body: value
-    }}
+    const newState = {
+      ...this.state,
+        note: {
+        ...this.state.note,
+        body: value
+        }
+    }
 
     this.setState(newState)
     this.props.updateNote(newState.note)
@@ -41,20 +47,67 @@ class NoteTab extends Component {
     this.props.destroyNote(this.props.note, this.props.token)
   }
 
+  toggleRenameFormActive = () => {
+    this.setState({
+      ...this.state,
+      renameFormActive: !this.state.renameFormActive
+    })
+  }
+
+  updateNoteTitle = () => {
+    this.props.updateSingleNote(this.state.note, this.props.token)
+    this.toggleRenameFormActive()
+  }
+
+  handleRenameChange = e => {
+    const { value } = e.target
+
+    const newState = {
+      ...this.state,
+        note: {
+          ...this.state.note,
+          title: value
+      }
+    }
+    this.setState(newState)
+  }
+
   render() {
     return(
-      <Tab.Pane>
-        <Menu secondary>
-          <Menu.Item onClick={this.handleClose}>close</Menu.Item>
-          <Menu.Item onClick={this.handleDelete}>delete</Menu.Item>
+      <Tab.Pane className='tab-pane'>
+        <Menu secondary className='tab-menu'>
+          <Menu.Item className='tab-menu-item' onClick={this.toggleRenameFormActive}>rename</Menu.Item>
+          {
+            this.state.renameFormActive
+            ?
+            <Input
+              action={{
+                icon: 'check square',
+                onClick: () => this.updateNoteTitle()
+              }}
+              placeholder={this.props.note.title}
+              onChange={this.handleRenameChange}
+              value={this.state.note.title}
+
+            />
+            :
+            null
+          }
+          <Menu.Item id='delete-button'  className='tab-menu-item' onClick={this.handleDelete}>delete</Menu.Item>
+          <Menu.Item position='right' icon='window close' className='tab-menu-item' onClick={this.handleClose}></Menu.Item>
         </Menu>
-        <Form>
-          <TextArea
-            rows={25}
-            value={this.state.note.body}
-            onChange={this.handleChange}
-          />
-        </Form>
+        <Grid>
+          <Grid.Column width={10}>
+            <Form>
+              <TextArea
+                value={this.state.note.body}
+                onChange={this.handleChange}
+                className='text-area'
+                style={{ minHeight: '95vh' }}
+              />
+            </Form>
+          </Grid.Column>
+        </Grid>
       </Tab.Pane>
     )
   }
@@ -68,4 +121,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { updateNote, updateUpdatedNotes, destroyNote, toggleActiveNote })(NoteTab)
+export default connect(mapStateToProps, { updateNote, updateUpdatedNotes, destroyNote, toggleActiveNote, updateSingleNote })(NoteTab)

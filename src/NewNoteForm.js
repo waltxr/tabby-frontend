@@ -32,9 +32,10 @@ class NewNoteForm extends Component {
           icon: 'plus',
           onClick: () => this.handleAddNote()
         }}
-        placeholder='Add new note...'
+        placeholder='Make a new note...'
         onChange={this.handleChange}
         value={this.state.title}
+        className='new-note-form'
       />
     )
   }

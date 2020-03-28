@@ -11,22 +11,100 @@
   bottom:0;
   left:0;
   width:250px;
-  background:#1B1C1D;
+  background:#131356;
   overflow-x:hidden;
   flex:1;
   color: pink;
+  justify-content: space-between;
 }
 
 .notes-container {
   margin-left: 250px;
   min-width: 550px;
-  background-color: yellow;
+  background-color: #131356;
 }
 
 .side-menu-item {
-  color: pink !important;
+  color: #9FBFDD !important;
   cursor: pointer;
 }
 .side-menu-item:hover {
-  color: hotpink !important;
+  color: #9FBFDD !important;
+  font-weight: bold !important;
+}
+
+.active {
+  background-color: #020221 !important;
+  color: white !important;
+}
+
+.text-area {
+  background-color: #020221 !important;
+}
+
+#logout-button {
+  color: #9FBFDD !important;
+}
+
+.item {
+  color: white !important;
+  border: none !important;
+}
+
+.text-area {
+  color: white !important;
+}
+
+.text-area {
+  border: none !important;
+  overflow: auto !important;
+  outline: none !important;
+
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+
+  resize: none !important; /*remove the resize handle on the bottom right*/
+}
+
+.new-note-form {
+  width: 100%;
+}
+
+.new-note-form>input {
+  border: none !important;
+  outline: none !important;
+
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+
+  resize: none !important; /*remove the resize handle on the bottom right*/
+}
+
+.tab-pane {
+  border: none !important;
+}
+
+.tabular {
+  border: none !important;
+}
+
+.ui.button, .ui.action>input, .input, .ui.form .field .ui.input input {
+  border-radius: 0 !important;
+}
+
+#delete-button {
+  color: red !important;
+}
+
+.tab-menu-item {
+  font-weight: bold !important;
+  /* color: green !important; */
+  color: white !important;
+}
+
+.tab-menu-item:hover {
+  color: green !important;
+  color: #9FBFDD !important;
 }

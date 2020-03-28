@@ -18,7 +18,6 @@ const SideMenu = (props) => {
 }
 
 const mapStateToProps = state => {
-  console.log(state.notes.list.filter(note => note.active === false));
   return {
     notes: state.notes.list.filter(note => note.active === false)
   }
