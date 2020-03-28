@@ -4,8 +4,16 @@
 }
 
 .login-form-input input {
-  background-color: purple !important;
-  color: #e0e1e2 !important;
+  background-color: #414189 !important;
+  color: white !important;
+  border: none !important;  
+  outline: none !important;
+
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+
+  resize: none !important; /*remove the resize handle on the bottom right*/
 }
 
 .ui.button {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Input, Tab, TextArea, Form, Menu, Grid } from 'semantic-ui-react'
+import { Icon, Input, Tab, TextArea, Form, Menu, Grid } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { updateSingleNote, updateNote, updateUpdatedNotes, destroyNote, toggleActiveNote } from './actions'
 
@@ -94,7 +94,7 @@ class NoteTab extends Component {
             null
           }
           <Menu.Item id='delete-button'  className='tab-menu-item' onClick={this.handleDelete}>delete</Menu.Item>
-          <Menu.Item position='right' icon='window close' className='tab-menu-item' onClick={this.handleClose}></Menu.Item>
+          <Menu.Item position='right'className='tab-menu-item' onClick={this.handleClose}><Icon size='large' name='window close'/></Menu.Item>
         </Menu>
         <Grid>
           <Grid.Column width={10}>
