@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon, Input, Tab, TextArea, Form, Menu, Grid } from 'semantic-ui-react'
+import { Segment, Button, Icon, Input, Tab, TextArea, Form, Menu, Grid } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { updateSingleNote, updateNote, updateUpdatedNotes, destroyNote, toggleActiveNote } from './actions'
 
@@ -77,25 +77,28 @@ class NoteTab extends Component {
       <Tab.Pane className='tab-pane'>
         <Menu secondary className='tab-menu'>
           <Menu.Item className='tab-menu-item' onClick={this.toggleRenameFormActive}>rename</Menu.Item>
-          {
-            this.state.renameFormActive
-            ?
-            <Input
-              action={{
-                icon: 'check square',
-                onClick: () => this.updateNoteTitle()
-              }}
-              placeholder={this.props.note.title}
-              onChange={this.handleRenameChange}
-              value={this.state.note.title}
-
-            />
-            :
-            null
-          }
           <Menu.Item id='delete-button'  className='tab-menu-item' onClick={this.handleDelete}>delete</Menu.Item>
           <Menu.Item position='right'className='tab-menu-item' onClick={this.handleClose}><Icon size='large' name='window close'/></Menu.Item>
         </Menu>
+        {
+          this.state.renameFormActive
+          ?
+          <Input
+            position='left'
+            action={{
+              icon: 'check square',
+              onClick: () => this.updateNoteTitle()
+            }}
+            placeholder={this.props.note.title}
+            onChange={this.handleRenameChange}
+            value={this.state.note.title}
+            pull='left'
+            label={<Button icon='close' onClick={this.toggleRenameFormActive}/>}
+            labelPosition='right'
+          />
+          :
+          null
+        }
         <Grid>
           <Grid.Column width={10}>
             <Form>

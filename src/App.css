@@ -1,5 +1,4 @@
 .App {
-  text-align: center;
   color: white;
 }
 
@@ -16,6 +15,7 @@
   flex:1;
   color: pink;
   justify-content: space-between;
+  text-align: center;
 }
 
 .notes-container {
