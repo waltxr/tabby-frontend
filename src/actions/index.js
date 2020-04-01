@@ -39,13 +39,17 @@ export const authenticate = credentials => {
         body: JSON.stringify(credentials)
       })
       .then(response => {
+        console.log(response);
         if (response.ok) {
           response.json()
           .then(jsonRes => {
             dispatch(authSuccess(jsonRes.user, jsonRes.token))
           })
         } else if (!response.ok) {
-          dispatch(authFail(response.statusText))
+          response.json()
+          .then(jsonRes => {
+            dispatch(authFail(jsonRes))
+          })
         }
       })
     }, 1500)

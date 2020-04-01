@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Segment, Button, Icon, Input, Tab, TextArea, Form, Menu, Grid } from 'semantic-ui-react'
+import { Button, Icon, Input, Tab, TextArea, Form, Menu, Grid } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { updateSingleNote, updateNote, updateUpdatedNotes, destroyNote, toggleActiveNote } from './actions'
 

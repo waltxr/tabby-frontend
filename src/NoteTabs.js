@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { fetchNotes, batchUpdateNotes } from './actions'
-import { Tab, Button } from 'semantic-ui-react'
+import { Tab } from 'semantic-ui-react'
 import NoteTab from './NoteTab'
 
 
