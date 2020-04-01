@@ -3,7 +3,7 @@ import { Button, Form, Grid, Header, Segment, Dimmer, Loader, Message } from 'se
 import './Login.css'
 import { authenticate } from './actions'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 
 class Login extends Component {
@@ -14,7 +14,7 @@ class Login extends Component {
   }
 
   handleChange = e => {
-    const {name, value} = e.target
+    const { name, value } = e.target
     this.setState({
       [name]: value
     })
@@ -22,15 +22,15 @@ class Login extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
-    const { history } = this.props
-    this.props.authenticate(this.state)
+    const { authenticate } = this.props
+    authenticate(this.state)
     this.setState({
       email: ''
     })
-    history.push('/notes')
   }
 
   render() {
+
     if (this.props.auth.authenticated) {
       return <Redirect to='/notes' />
     }
@@ -61,7 +61,7 @@ class Login extends Component {
                     fluid
                     icon='user'
                     iconPosition='left'
-                    placeholder='E-mail address'
+                    placeholder='Email'
                     value={this.state.email}
                     onChange={this.handleChange}
                     name='email'
@@ -83,6 +83,7 @@ class Login extends Component {
                   </Button>
                 </Segment>
               </Form>
+              <Link id='signup-button' to='signup'>Sign Up</Link>
             </div>
           }
         </Grid.Column>

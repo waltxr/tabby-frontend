@@ -117,3 +117,37 @@
   color: green !important;
   color: #9FBFDD !important;
 }
+
+/* Signup page */
+
+
+.signup-header {
+  font-family: 'Electrolize', sans-serif !important;
+  color: #e0e1e2 !important;
+}
+
+.signup-form-input input {
+  background-color: #414189 !important;
+  color: white !important;
+  border: none !important;
+  outline: none !important;
+
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+
+  resize: none !important; /*remove the resize handle on the bottom right*/
+}
+
+.ui.button {
+  border-radius: 0;
+}
+
+.dimmer {
+  background-color: #131356 !important;
+  font-family: 'Electrolize', sans-serif !important;
+}
+
+#login-button {
+  font-size: smaller;
+}

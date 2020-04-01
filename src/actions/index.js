@@ -6,6 +6,9 @@ const LOGIN = 'LOGIN'
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 const LOGIN_FAIL = 'LOGIN_FAIL'
 const LOGOUT = 'LOGOUT'
+const SIGNUP = 'SIGNUP'
+const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS'
+const SIGNUP_FAIL = 'SIGNUP_FAIL'
 
 const authRequest = () => ({
     type: LOGIN
@@ -17,7 +20,6 @@ const authSuccess = (user, token) => ({
   token
 })
 
-
 const authFail = error => ({
   type: LOGIN_FAIL,
   error
@@ -25,6 +27,21 @@ const authFail = error => ({
 
 const authLogout = () => ({
   type: LOGOUT
+})
+
+const signupRequest = () => ({
+  type: SIGNUP
+})
+
+const signupSuccess = (user, token) => ({
+  type: SIGNUP_SUCCESS,
+  user,
+  token
+})
+
+const signupFail = error => ({
+  type: SIGNUP_FAIL,
+  error
 })
 
 export const authenticate = credentials => {
@@ -39,7 +56,6 @@ export const authenticate = credentials => {
         body: JSON.stringify(credentials)
       })
       .then(response => {
-        console.log(response);
         if (response.ok) {
           response.json()
           .then(jsonRes => {
@@ -62,6 +78,34 @@ export const logOut = () => {
     setTimeout(() => {
       dispatch(authLogout())
       localStorage.clear()
+    }, 1000)
+  }
+}
+
+export const signup = user => {
+  return dispatch => {
+    dispatch(signupRequest())
+    setTimeout(() => {
+      return fetch(`${API_URL}/auth/signup`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(user)
+      })
+      .then(response => {
+        if (response.ok) {
+          response.json()
+          .then(jsonRes => {
+            dispatch(signupSuccess(jsonRes.user, jsonRes.token))
+          })
+        } else if (!response.ok) {
+          response.json()
+          .then(jsonRes => {
+            dispatch(signupFail(jsonRes.errors))
+          })
+        }
+      })
     }, 1000)
   }
 }

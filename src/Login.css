@@ -6,7 +6,7 @@
 .login-form-input input {
   background-color: #414189 !important;
   color: white !important;
-  border: none !important;  
+  border: none !important;
   outline: none !important;
 
   -webkit-box-shadow: none !important;
@@ -23,4 +23,8 @@
 .dimmer {
   background-color: #131356 !important;
   font-family: 'Electrolize', sans-serif !important;
+}
+
+#signup-button {
+  font-size: smaller;
 }

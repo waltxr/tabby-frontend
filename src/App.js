@@ -8,9 +8,10 @@ import {
   Redirect
 } from "react-router-dom";
 import Notes from './Notes'
+import Signup from './Signup'
 
 const App = () => {
-  
+
   return(
     <div className="App">
       <Router>
@@ -18,6 +19,7 @@ const App = () => {
         <Switch>
           <Route path='/notes' component={Notes} />
           <Route path='/login' component={Login}/>
+          <Route path='/signup' component={Signup} />
         </Switch>
       </Router>
     </div>

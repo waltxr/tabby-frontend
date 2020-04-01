@@ -3,7 +3,8 @@ const initialState = {
   authenticated: false,
   authenticationError: undefined,
   currentUser: undefined,
-  token: undefined
+  token: undefined,
+  signupError: undefined
 }
 
 const auth = (state = initialState, action) => {
@@ -26,6 +27,25 @@ const auth = (state = initialState, action) => {
         ...state,
         authenticating: false,
         authenticationError: action.error
+      }
+    case 'SIGNUP':
+      return {
+        ...state,
+        authenticating: true
+      }
+    case 'SIGNUP_SUCCESS':
+      return {
+        ...state,
+        authenticating: false,
+        authenticated: true,
+        currentUser: action.user,
+        token: action.token
+      }
+    case 'SIGNUP_FAIL':
+      return {
+        ...state,
+        authenticating: false,
+        signupError: action.error[0]
       }
     default:
       return state
