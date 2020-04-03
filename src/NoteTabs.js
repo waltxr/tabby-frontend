@@ -7,6 +7,13 @@ import NoteTab from './NoteTab'
 
 class NoteTabs extends Component {
 
+  state = {activeIndex: 0}
+
+  handleTabChange = e => {
+    console.log(e.target);
+    console.log('in tab change');
+  }
+
   runBatchUpdates = () => {
     const { tokenExpiresAt, logOut } = this.props
     if (Date.parse(tokenExpiresAt) < Date.now()) {
@@ -29,8 +36,10 @@ class NoteTabs extends Component {
   }
 
   render() {
+    const { notes } = this.props
 
-    const panes = this.props.notes.map((note) => {
+    const panes = notes
+    .map((note) => {
       return {
         menuItem: note.title,
         render: () => <NoteTab note={note} />
@@ -38,9 +47,7 @@ class NoteTabs extends Component {
     })
 
     return(
-      <div>
-        <Tab panes={panes} />
-      </div>
+      <Tab panes={panes} onTabChange={this.handleTabChange}  />
     )
   }
 
@@ -49,7 +56,9 @@ class NoteTabs extends Component {
 const mapStateToProps = state => {
   return {
     currentUser: state.auth.currentUser,
-    notes: state.notes.list.filter(note => note.active === true),
+    notes: state.notes.list
+           .filter(note => note.active)
+           .sort((a,b) => new Date(b.updated_at) - new Date(a.updated_at)),
     token: state.auth.token,
     tokenExpiresAt: state.auth.tokenExpiresAt,
     updatedNotes: state.notes.updatedNotes

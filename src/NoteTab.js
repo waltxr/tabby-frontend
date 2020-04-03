@@ -78,7 +78,9 @@ class NoteTab extends Component {
         <Menu secondary className='tab-menu'>
           <Menu.Item className='tab-menu-item' onClick={this.toggleRenameFormActive}>rename</Menu.Item>
           <Menu.Item id='delete-button'  className='tab-menu-item' onClick={this.handleDelete}>delete</Menu.Item>
-          <Menu.Item position='right'className='tab-menu-item' onClick={this.handleClose}><Icon size='large' name='window close'/></Menu.Item>
+          <Menu.Item position='right'className='tab-menu-item' onClick={this.handleClose}>
+            <Icon size='large' name='window close'/>
+          </Menu.Item>
         </Menu>
         {
           this.state.renameFormActive

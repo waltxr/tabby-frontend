@@ -6,20 +6,21 @@ import SideMenuItem from './SideMenuItem'
 
 const SideMenu = (props) => {
 
-  const menuItems = props.notes.map(note => {
-    return <SideMenuItem note={note} />
+  const menuItems = props.notes.reverse().map(note => {
+    return <SideMenuItem note={note} key={note.id}/>
   })
 
   return(
-    <Menu text vertical color='pink'>
+    <Menu text vertical>
       { menuItems }
     </Menu>
   )
+
 }
 
 const mapStateToProps = state => {
   return {
-    notes: state.notes.list.filter(note => note.active === false)
+    notes: state.notes.list.filter(note => !note.active)
   }
 }
 
