@@ -14,10 +14,11 @@ const authRequest = () => ({
     type: LOGIN
 })
 
-const authSuccess = (user, token) => ({
+const authSuccess = (user, token, tokenExpiresAt) => ({
   type: LOGIN_SUCCESS,
   user,
-  token
+  token,
+  tokenExpiresAt
 })
 
 const authFail = error => ({
@@ -59,7 +60,7 @@ export const authenticate = credentials => {
         if (response.ok) {
           response.json()
           .then(jsonRes => {
-            dispatch(authSuccess(jsonRes.user, jsonRes.token))
+            dispatch(authSuccess(jsonRes.user, jsonRes.token, jsonRes.exp))
           })
         } else if (!response.ok) {
           response.json()
@@ -180,7 +181,7 @@ export const fetchNotes = token => {
           }
         })
       } else if (!response.ok) {
-        dispatch(noteErrors(response.statusText))
+        dispatch(authLogout())
       }
     })
   }
@@ -197,10 +198,14 @@ export const addNote = (note, token) => {
       body: JSON.stringify(note)
     })
     .then(response => {
-      return response.json()
-    })
-    .then(json => {
-      dispatch(postNote(json))
+      if (response.ok) {
+        response.json()
+        .then(json => {
+          dispatch(postNote(json))
+        })
+      } else if (!response.ok) {
+        dispatch(authLogout())
+      }
     })
   }
 }
@@ -217,7 +222,7 @@ export const updateUpdatedNotes = noteId => {
   }
 }
 
-export const batchUpdateNotes = (notes, token) => {
+export const batchUpdateNotes = (notes, token, tokenExpiresAt) => {
   return dispatch => {
     notes.forEach( note => {
       fetch(`${API_URL}/notes/update`, {
@@ -246,6 +251,8 @@ export const destroyNote = (note, token) => {
     .then(response => {
       if (response.ok) {
         dispatch(deleteNote(note))
+      } else if (!response.ok) {
+        dispatch(authLogout())
       }
     })
   }
@@ -265,6 +272,8 @@ export const toggleActiveNote = (note, token) => {
     .then(response => {
       if (response.ok) {
         dispatch(fetchNotes(token))
+      } else if (!response.ok) {
+        dispatch(authLogout())
       }
     })
   }
@@ -283,6 +292,8 @@ export const updateSingleNote = (note, token) => {
     .then(response => {
       if (response.ok) {
         dispatch(fetchNotes(token))
+      } else if (!response.ok) {
+        dispatch(authLogout())
       }
     })
   }

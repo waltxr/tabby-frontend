@@ -11,7 +11,6 @@ import Notes from './Notes'
 import Signup from './Signup'
 
 const App = () => {
-
   return(
     <div className="App">
       <Router>

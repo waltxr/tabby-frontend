@@ -15,6 +15,7 @@ const handleLogout = (logOut, history) => () => {
 }
 
 const Notes = ({ logOut, auth, history }) => {
+  
   if (!auth.authenticated) {
     return <Redirect to='/login' />
   }

@@ -120,7 +120,8 @@ class NoteTab extends Component {
 const mapStateToProps = state => {
   return {
     updatedNotes: state.notes.updatedNotes,
-    token: state.auth.token
+    token: state.auth.token,
+    tokenExpiresAt: state.auth.tokenExpiresAt
   }
 }
 

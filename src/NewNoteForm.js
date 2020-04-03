@@ -10,7 +10,10 @@ class NewNoteForm extends Component {
 
   handleAddNote = () => {
     const { addNote, token } = this.props
-    const note = this.state
+    const note = {title: this.state.title, body: this.state.body}
+    if (note.title.length === 0) {
+      note.title='Untitled'
+    }
     addNote(note, token)
     this.setState({
       title: initialState.title,

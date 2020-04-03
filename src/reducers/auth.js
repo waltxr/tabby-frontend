@@ -4,7 +4,8 @@ const initialState = {
   authenticationError: undefined,
   currentUser: undefined,
   token: undefined,
-  signupError: undefined
+  signupError: undefined,
+  tokenExpiresAt: undefined
 }
 
 const auth = (state = initialState, action) => {
@@ -20,13 +21,18 @@ const auth = (state = initialState, action) => {
         authenticating: false,
         authenticated: true,
         currentUser: action.user,
-        token: action.token
+        token: action.token,
+        tokenExpiresAt: action.tokenExpiresAt
       }
     case 'LOGIN_FAIL':
       return {
         ...state,
         authenticating: false,
         authenticationError: action.error
+      }
+    case 'LOGOUT':
+      return{
+        state
       }
     case 'SIGNUP':
       return {
