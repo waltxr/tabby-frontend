@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { fetchNotes, batchUpdateNotes, logOut } from './actions'
-import { Tab } from 'semantic-ui-react'
+import { Tab, Segment } from 'semantic-ui-react'
 import NoteTab from './NoteTab'
+import NotePlaceholderSegment from './NotePlaceholderSegment'
 
 
 class NoteTabs extends Component {
@@ -10,20 +11,31 @@ class NoteTabs extends Component {
   state = {activeIndex: 0}
 
   handleTabChange = e => {
-    console.log(e.target);
-    console.log('in tab change');
+    let child = e.target
+    let i = 0
+    while ((child = child.previousSibling) != null) {
+      i++
+    }
+    this.setState({activeIndex: i})
   }
 
   runBatchUpdates = () => {
-    const { tokenExpiresAt, logOut } = this.props
+    const { tokenExpiresAt, logOut, token, updatedNotes, notes, batchUpdateNotes } = this.props
     if (Date.parse(tokenExpiresAt) < Date.now()) {
       logOut()
       clearInterval(this.interval)
     } else {
-      if (this.props.updatedNotes.length > 0) {
-        let notesToUpdate = this.props.notes.filter(note => this.props.updatedNotes.includes(note.id))
-        this.props.batchUpdateNotes(notesToUpdate, this.props.token, this.props.tokenExpiresAt)
+      if (updatedNotes.length > 0) {
+        let notesToUpdate = notes.filter(note => updatedNotes.includes(note.id))
+        batchUpdateNotes(notesToUpdate, token, tokenExpiresAt)
       }
+    }
+  }
+
+  setIndexFromTabClose = () => {
+    const { activeIndex } = this.state
+    if (activeIndex !== 0) {
+      this.setState({activeIndex: activeIndex-1})
     }
   }
 
@@ -42,12 +54,20 @@ class NoteTabs extends Component {
     .map((note) => {
       return {
         menuItem: note.title,
-        render: () => <NoteTab note={note} />
+        render: () => <NoteTab note={note} handleSetTabClose={this.setIndexFromTabClose}/>
       }
     })
 
     return(
-      <Tab panes={panes} onTabChange={this.handleTabChange}  />
+      <div>
+      {
+        notes.length > 0
+        ?
+        <Tab panes={panes} onTabChange={this.handleTabChange} activeIndex={this.state.activeIndex} />
+        :
+        <NotePlaceholderSegment />
+      }
+      </div>
     )
   }
 
