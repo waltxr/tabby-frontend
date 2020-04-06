@@ -151,3 +151,12 @@
 #login-button {
   font-size: smaller;
 }
+
+.tabular {
+  overflow-x: scroll;
+}
+
+.tabular::-webkit-scrollbar {
+    height: 0;
+    width: 0;
+}

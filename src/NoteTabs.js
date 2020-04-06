@@ -54,7 +54,7 @@ class NoteTabs extends Component {
     .map((note) => {
       return {
         menuItem: note.title,
-        render: () => <NoteTab note={note} handleSetTabClose={this.setIndexFromTabClose}/>
+        render: () => <NoteTab note={note} handleSetTabClose={this.setIndexFromTabClose} key={note.id}/>
       }
     })
 

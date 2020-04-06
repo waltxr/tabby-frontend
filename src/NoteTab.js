@@ -40,7 +40,7 @@ class NoteTab extends Component {
 
   handleClose = () => {
     this.props.toggleActiveNote(this.props.note, this.props.token)
-    this.props.handleSetTabClose()    
+    this.props.handleSetTabClose()
   }
 
   handleDelete = () => {

@@ -7,7 +7,7 @@ import SideMenuItem from './SideMenuItem'
 const SideMenu = (props) => {
 
   const menuItems = props.notes.reverse().map(note => {
-    return <SideMenuItem note={note} key={note.id}/>
+    return <SideMenuItem note={note} key={note.id} key={note.id} />
   })
 
   return(

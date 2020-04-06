@@ -9,10 +9,10 @@ class NewNoteForm extends Component {
   state = initialState
 
   handleAddNote = () => {
-    const { addNote, token } = this.props
+    const { addNote, token, notes } = this.props
     const note = {title: this.state.title, body: this.state.body}
     if (note.title.length === 0) {
-      note.title='Untitled'
+      note.title=`Note ${notes.length}`
     }
     addNote(note, token)
     this.setState({
@@ -46,7 +46,8 @@ class NewNoteForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    token: state.auth.token
+    token: state.auth.token,
+    notes: state.notes.list
   }
 }
 
