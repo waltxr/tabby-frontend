@@ -76,6 +76,7 @@ class NoteTab extends Component {
     return(
       <Tab.Pane className='tab-pane'>
         <Menu secondary className='tab-menu'>
+          <Menu.Item className='tab-menu-item' onClick={this.toggleRenameFormActive}>Last updated at {this.props.note.updated_at}</Menu.Item>
           <Menu.Item className='tab-menu-item' onClick={this.toggleRenameFormActive}>rename</Menu.Item>
           <Menu.Item id='delete-button'  className='tab-menu-item' onClick={this.handleDelete}>delete</Menu.Item>
           <Menu.Item position='right'className='tab-menu-item' onClick={this.handleClose}>
